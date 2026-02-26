@@ -438,7 +438,8 @@
       standaloneChat={true}
       fullscreen={layout === 'fullscreen'}
       height={height || undefined}
-      on:close={closeChat} />
+      on:close={closeChat}
+      on:question={(e) => dispatchCustomEvent('question', e.detail)} />
   {/if}
 
   <Viewer />

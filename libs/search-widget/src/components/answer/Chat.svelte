@@ -50,6 +50,7 @@
   let isScrolling = $state(false);
 
   function onInput(question: string) {
+    dispatch('question', { question });
     ask.next({ question, reset: false });
   }
 
