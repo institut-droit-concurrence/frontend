@@ -439,7 +439,8 @@
       fullscreen={layout === 'fullscreen'}
       height={height || undefined}
       on:close={closeChat}
-      on:question={(e) => dispatchCustomEvent('question', e.detail)} />
+      on:question={(e) => dispatchCustomEvent('question', e.detail)}
+      on:answer={(e) => dispatchCustomEvent('answer', e.detail)} />
   {/if}
 
   <Viewer />

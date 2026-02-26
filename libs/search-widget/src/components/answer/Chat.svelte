@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { delay, distinctUntilChanged, filter } from 'rxjs';
+  import { delay, distinctUntilChanged, filter, take } from 'rxjs';
   import { createEventDispatcher, onMount } from 'svelte';
   import { freezeBackground, Icon, IconButton, LoadingDots, unblockBackground, createFocusTrap } from '../../common';
   import Button from '../../common/button/Button.svelte';
@@ -77,7 +77,24 @@
           });
         }
       });
-    return () => sub.unsubscribe();
+
+    let wasStreaming = false;
+    const streamSub = isStreaming.subscribe((streaming) => {
+      if (wasStreaming && !streaming) {
+        chat.pipe(take(1)).subscribe((entries) => {
+          const lastEntry = entries.at(-1);
+          if (lastEntry && !lastEntry.answer.inError) {
+            dispatch('answer', { text: lastEntry.answer.text ?? '', citations: lastEntry.answer.citations });
+          }
+        });
+      }
+      wasStreaming = streaming;
+    });
+
+    return () => {
+      sub.unsubscribe();
+      streamSub.unsubscribe();
+    };
   });
 
   function checkIfScrolling() {

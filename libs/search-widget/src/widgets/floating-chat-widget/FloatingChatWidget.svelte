@@ -510,7 +510,8 @@
             fullscreen={false}
             height={'auto'}
             on:close={closePanel}
-            on:question={(e) => dispatchCustomEvent('question', e.detail)} />
+            on:question={(e) => dispatchCustomEvent('question', e.detail)}
+            on:answer={(e) => dispatchCustomEvent('answer', e.detail)} />
         </div>
       </div>
     {/if}
