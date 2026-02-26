@@ -16,6 +16,7 @@
     widgetBlocked,
     widgetBlockedMessage,
     widgetDisabled,
+    widgetNotification,
   } from '../../core';
   import { ask } from '../../core/stores/effects';
   import Answer from './Answer.svelte';
@@ -133,6 +134,9 @@
             </div>
           </div>
         {/each}
+        {#if $widgetNotification?.position === 'in-chat'}
+          <div class="widget-notification">{@html $widgetNotification.html}</div>
+        {/if}
       </div>
       {#if $isStreaming}
         <LoadingDots label={$isReasoning ? $_('answer.reasoning') + '…' : ''} />
@@ -140,6 +144,9 @@
       <div
         class="input-container"
         class:scrolling-behind={isScrolling}>
+        {#if $widgetNotification?.position === 'before-input'}
+          <div class="widget-notification">{@html $widgetNotification.html}</div>
+        {/if}
         <ChatInput
           placeholder={$_($hasChatEntries ? $chatPlaceholderDiscussion : $chatPlaceholderInitial)}
           disabled={$isStreaming || $widgetBlocked || $widgetDisabled}
@@ -151,6 +158,9 @@
             {$widgetBlockedMessage} 
           </div>
         {:else if standaloneChat && !$hideReset}
+          {#if $widgetNotification?.position === 'after-input'}
+            <div class="widget-notification">{@html $widgetNotification.html}</div>
+          {/if}
           <div class="reset-button">
             <Button
               aspect="basic"

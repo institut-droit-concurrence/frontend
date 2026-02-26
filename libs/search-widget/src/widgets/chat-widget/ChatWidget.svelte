@@ -49,8 +49,10 @@
     widgetFeedback,
     widgetFilters,
     widgetImageRagStrategies,
+    widgetNotification,
     widgetRagStrategies,
     type WidgetFilters,
+    type WidgetNotificationPosition,
   } from '../../core';
   import { getApiErrors, initNuclia, resetNuclia } from '../../core/api';
   import { setLang } from '../../core/i18n';
@@ -236,6 +238,14 @@
 
   export function enable() {
     widgetDisabled.set(false);
+  }
+
+  export function setNotification(html: string, options?: { position?: WidgetNotificationPosition }) {
+    widgetNotification.set({ html, position: options?.position ?? 'before-input' });
+  }
+
+  export function clearNotification() {
+    widgetNotification.set(null);
   }
 
   export const onError = getApiErrors();
