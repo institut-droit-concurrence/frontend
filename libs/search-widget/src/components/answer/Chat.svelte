@@ -15,6 +15,7 @@
     resetChat,
     widgetBlocked,
     widgetBlockedMessage,
+    widgetDisabled,
   } from '../../core';
   import { ask } from '../../core/stores/effects';
   import Answer from './Answer.svelte';
@@ -91,6 +92,7 @@
   <div
     class="sw-chat"
     class:fullscreen
+    class:is-disabled={$widgetDisabled}
     bind:this={chatContainerEl}>
     {#if fullscreen}
       <header>
@@ -140,7 +142,7 @@
         class:scrolling-behind={isScrolling}>
         <ChatInput
           placeholder={$_($hasChatEntries ? $chatPlaceholderDiscussion : $chatPlaceholderInitial)}
-          disabled={$isStreaming || $widgetBlocked}
+          disabled={$isStreaming || $widgetBlocked || $widgetDisabled}
           {fullscreen}
           onChange={onInput} />
         {#if $widgetBlocked}
@@ -152,7 +154,7 @@
           <div class="reset-button">
             <Button
               aspect="basic"
-              disabled={!$hasChatEntries}
+              disabled={!$hasChatEntries || $widgetDisabled}
               size="small"
               on:click={resetConversation}>
               {$_('answer.reset')}

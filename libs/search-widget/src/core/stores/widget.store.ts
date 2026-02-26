@@ -18,6 +18,7 @@ export const widgetViewerEnabled = writableSubject<boolean>(true);
 export const widgetBlocked = writableSubject<boolean>(false);
 export const widgetBlockedMessage = writableSubject<string>('');
 export const widgetCache = writableSubject<number | undefined>(undefined);
+export const widgetDisabled = writableSubject<boolean>(false);
 
 export const navigateToLink: Observable<boolean> = widgetFeatures.pipe(map((features) => !!features?.navigateToLink));
 export const navigateToFile: Observable<boolean> = widgetFeatures.pipe(map((features) => !!features?.navigateToFile));

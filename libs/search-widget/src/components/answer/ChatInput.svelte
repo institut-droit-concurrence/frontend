@@ -4,7 +4,7 @@
   import { SpeechSettings, SpeechStore } from 'talk2svelte';
   import { Dropdown, Icon, IconButton } from '../../common';
   import Textarea from '../../common/textarea/Textarea.svelte';
-  import { chatInput, hasFilterButton, hasFilters, hasSearchButton, isSpeechEnabled, isSpeechOn } from '../../core';
+  import { chatInput, hasFilterButton, hasFilters, hasSearchButton, isSpeechEnabled, isSpeechOn, widgetDisabled } from '../../core';
   import { _, currentLanguage, translateInstant } from '../../core/i18n';
   import SearchFilters from '../search-filters/SearchFilters.svelte';
   import SelectedFilters from '../search-filters/SelectedFilters.svelte';
@@ -142,6 +142,7 @@
             active={$isSpeechStarted}
             aspect="basic"
             ariaLabel={$_('input.microphone')}
+            disabled={$widgetDisabled}
             on:click={toggleSpeech} />
         {/if}
         {#if $hasSearchButton}
@@ -149,6 +150,7 @@
             icon="search"
             aspect="basic"
             ariaLabel={$_('input.search')}
+            disabled={$widgetDisabled}
             on:click={askQuestion} />
         {/if}
         {#if $hasFilterButton}
@@ -159,6 +161,7 @@
               size="medium"
               active={showFilterDropdowns}
               ariaLabel={$_('input.filters')}
+              disabled={$widgetDisabled}
               on:click={toggleFilter} />
           </div>
         {/if}

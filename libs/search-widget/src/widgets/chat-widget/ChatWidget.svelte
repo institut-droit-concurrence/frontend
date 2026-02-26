@@ -35,6 +35,7 @@
     chatPlaceholderInitial,
     DEFAULT_CHAT_PLACEHOLDER,
     filterExpression,
+    isSpeechOn,
     preselectedFilters,
     reasoningParam,
     resetChat,
@@ -43,6 +44,7 @@
     widgetBlocked,
     widgetBlockedMessage,
     widgetCache,
+    widgetDisabled,
     widgetFeatures,
     widgetFeedback,
     widgetFilters,
@@ -225,6 +227,15 @@
 
   export function setChat(entries: Ask.Entry[]) {
     chat.set(entries);
+  }
+
+  export function disable() {
+    widgetDisabled.set(true);
+    isSpeechOn.set({ value: false });
+  }
+
+  export function enable() {
+    widgetDisabled.set(false);
   }
 
   export const onError = getApiErrors();

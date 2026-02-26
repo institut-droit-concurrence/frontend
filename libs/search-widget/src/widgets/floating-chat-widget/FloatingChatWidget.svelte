@@ -36,11 +36,13 @@
     chatPlaceholderInitial,
     DEFAULT_CHAT_PLACEHOLDER,
     filterExpression,
+    isSpeechOn,
     preselectedFilters,
     reasoningParam,
     resetChat,
     routingParam,
     searchConfigId,
+    widgetDisabled,
     widgetFeatures,
     widgetFeedback,
     widgetFilters,
@@ -230,6 +232,15 @@
 
   export function setSearchConfiguration(id: string | undefined) {
     searchConfigId.set(id);
+  }
+
+  export function disable() {
+    widgetDisabled.set(true);
+    isSpeechOn.set({ value: false });
+  }
+
+  export function enable() {
+    widgetDisabled.set(false);
   }
 
   export const onError = getApiErrors();
